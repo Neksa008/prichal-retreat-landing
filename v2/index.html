@@ -1,0 +1,637 @@
+<title>Причал Retreat — Ночной берег</title>
+<meta name="description" content="Тёмная версия лендинга ретрита у моря в Сочи: приватность, стекло и свет — вечерняя йога, номера с видом на воду." />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400;1,9..144,500&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#0E1210;
+  --bg-deep:#0A0C09;
+  --panel:#151912;
+  --ink:#F1ECDD;
+  --ink-soft:#B7B29E;
+  --ink-faint:#726C5B;
+  --line:rgba(241,236,221,0.10);
+  --glass:rgba(241,236,221,0.045);
+  --glass-strong:rgba(241,236,221,0.08);
+  --teal:#4FB89C;
+  --teal-glow:rgba(79,184,156,0.35);
+  --gold:#E5B064;
+  --gold-glow:rgba(229,176,100,0.3);
+  --ff-display:'Fraunces', Georgia, serif;
+  --ff-body:'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-2: 0 24px 60px -24px rgba(0,0,0,0.7);
+  --radius-s:10px; --radius-m:20px; --radius-l:30px;
+  color-scheme: dark;
+}
+*{ box-sizing:border-box; }
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--ff-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{ background:var(--teal); color:var(--bg-deep); }
+a{ color:inherit; }
+h1,h2,h3{ font-family:var(--ff-display); font-weight:400; margin:0; text-wrap:balance; letter-spacing:-0.005em; }
+p{ margin:0; }
+img,svg{ display:block; max-width:100%; }
+.container{ width:100%; max-width:1180px; margin-inline:auto; padding-inline:clamp(18px,5vw,56px); }
+
+/* ambient background layer */
+.ambient{ position:fixed; inset:0; z-index:-1; overflow:hidden; }
+.ambient::before, .ambient::after{
+  content:""; position:absolute; border-radius:50%;
+  filter:blur(90px); opacity:0.55;
+}
+.ambient::before{ width:640px; height:640px; top:-220px; right:-160px; background:var(--teal-glow); animation:driftA 34s ease-in-out infinite alternate; }
+.ambient::after{ width:520px; height:520px; bottom:-200px; left:-140px; background:var(--gold-glow); opacity:0.28; animation:driftB 40s ease-in-out infinite alternate; }
+@keyframes driftA{ from{ transform:translate(0,0);} to{ transform:translate(-60px,60px);} }
+@keyframes driftB{ from{ transform:translate(0,0);} to{ transform:translate(50px,-40px);} }
+.stars{ position:fixed; inset:0; z-index:-1; opacity:0.5;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 22%, var(--ink) 40%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 78% 14%, var(--ink) 40%, transparent 50%),
+    radial-gradient(1.6px 1.6px at 42% 8%, var(--ink) 40%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 90% 38%, var(--ink) 40%, transparent 50%),
+    radial-gradient(1.4px 1.4px at 25% 45%, var(--ink) 40%, transparent 50%),
+    radial-gradient(1.2px 1.2px at 63% 30%, var(--ink) 40%, transparent 50%),
+    radial-gradient(1.4px 1.4px at 6% 62%, var(--ink) 40%, transparent 50%);
+  background-repeat:no-repeat;
+}
+
+.eyebrow{
+  font-weight:600; font-size:11.5px; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--teal); display:inline-flex; align-items:center; gap:10px;
+}
+.eyebrow::before{ content:""; width:20px; height:1px; background:var(--teal); display:inline-block; }
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-weight:600; font-size:14.5px; padding:14px 26px; border-radius:999px;
+  border:1px solid transparent; cursor:pointer; text-decoration:none; white-space:nowrap;
+  transition:transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s ease, background .25s ease, border-color .25s ease;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn-accent{ background:var(--teal); color:#0A140F; box-shadow:0 0 0 rgba(0,0,0,0); }
+.btn-accent:hover{ box-shadow:0 10px 30px -8px var(--teal-glow); }
+.btn-glass{ background:var(--glass); border-color:var(--line); color:var(--ink); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+.btn-glass:hover{ border-color:var(--teal); color:var(--teal); }
+
+.glass{
+  background:var(--glass);
+  border:1px solid var(--line);
+  backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+  border-radius:var(--radius-m);
+}
+
+/* header */
+.site-header{ position:sticky; top:0; z-index:60; }
+.site-header.scrolled{ background:rgba(14,18,16,0.6); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border-bottom:1px solid var(--line); }
+.header-inner{ display:flex; align-items:center; justify-content:space-between; padding-block:16px; gap:16px; }
+.brand{ display:flex; align-items:center; gap:10px; text-decoration:none; font-family:var(--ff-display); font-style:italic; font-size:20px; color:var(--ink); }
+.brand svg{ width:28px; height:28px; }
+.back-link{ font-size:12.5px; color:var(--ink-faint); text-decoration:none; display:flex; align-items:center; gap:6px; }
+.back-link:hover{ color:var(--teal); }
+.nav-desktop{ display:flex; align-items:center; gap:clamp(18px,3vw,34px); list-style:none; margin:0; padding:0; }
+.nav-desktop a{ text-decoration:none; font-size:14px; font-weight:500; color:var(--ink-soft); padding-block:6px; border-bottom:1px solid transparent; transition:color .2s ease, border-color .2s ease; }
+.nav-desktop a:hover{ color:var(--ink); border-color:var(--teal); }
+.header-actions{ display:flex; align-items:center; gap:12px; }
+.nav-toggle{ display:none; width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:var(--glass); align-items:center; justify-content:center; cursor:pointer; position:relative; flex-shrink:0; }
+.nav-toggle span, .nav-toggle::before, .nav-toggle::after{ content:""; display:block; position:absolute; width:16px; height:1.5px; background:var(--ink); transition:transform .25s ease, opacity .25s ease; }
+.nav-toggle::before{ transform:translateY(-5px); } .nav-toggle::after{ transform:translateY(5px); }
+.nav-toggle.open::before{ transform:rotate(45deg);} .nav-toggle.open::after{ transform:rotate(-45deg);} .nav-toggle.open span{ opacity:0; }
+.nav-mobile{ display:none; flex-direction:column; gap:2px; padding:8px clamp(18px,5vw,56px) 22px; list-style:none; margin:0; }
+.nav-mobile a{ text-decoration:none; color:var(--ink); font-family:var(--ff-display); font-style:italic; font-size:22px; padding:12px 0; border-bottom:1px solid var(--line); }
+.nav-mobile .header-actions{ margin-top:14px; }
+
+/* hero */
+.hero{ position:relative; overflow:hidden; }
+.hero-art{ position:absolute; inset:0; z-index:0; }
+.hero-art svg{ width:100%; height:100%; }
+.hero-fade{ position:absolute; left:0; right:0; bottom:0; height:26%; background:linear-gradient(to bottom, transparent, var(--bg)); z-index:1; }
+.hero-inner{ position:relative; z-index:2; padding-top:clamp(64px,12vh,130px); padding-bottom:clamp(70px,14vh,150px); }
+.hero-copy{ max-width:760px; }
+.hero-copy .eyebrow{ margin-bottom:22px; }
+.hero-title{ font-size:clamp(40px,6.8vw,80px); font-weight:300; line-height:1.04; color:var(--ink); }
+.hero-title em{ font-style:italic; color:var(--teal); font-weight:400; }
+.hero-sub{ margin-top:22px; font-size:clamp(16px,1.6vw,19px); color:var(--ink-soft); max-width:44ch; line-height:1.7; }
+.hero-cta-row{ margin-top:38px; display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+.hero-panel{
+  margin-top:clamp(48px,8vh,80px);
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  max-width:640px;
+  border-radius:var(--radius-m); overflow:hidden;
+}
+.hero-panel .glass{ border-radius:0; padding:20px 22px; }
+.hero-stat b{ display:block; font-family:var(--ff-display); font-style:italic; font-size:clamp(24px,3vw,30px); color:var(--ink); font-variant-numeric:tabular-nums; }
+.hero-stat span{ display:block; margin-top:4px; font-size:11.5px; color:var(--ink-faint); letter-spacing:0.02em; }
+
+[data-reveal]{ opacity:0; transform:translateY(18px); }
+.hero [data-reveal]{ animation:reveal 1s cubic-bezier(.2,.7,.2,1) forwards; }
+.hero [data-reveal="1"]{ animation-delay:.05s; } .hero [data-reveal="2"]{ animation-delay:.2s; }
+.hero [data-reveal="3"]{ animation-delay:.36s; } .hero [data-reveal="4"]{ animation-delay:.52s; }
+@keyframes reveal{ to{ opacity:1; transform:translateY(0);} }
+.scroll-reveal{ opacity:0; transform:translateY(28px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+.scroll-reveal.in-view{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion: reduce){
+  [data-reveal], .scroll-reveal{ opacity:1 !important; transform:none !important; animation:none !important; transition:none !important; }
+  .ambient::before, .ambient::after, .moon-glow{ animation:none !important; }
+}
+
+section{ position:relative; }
+.section-pad{ padding-block:clamp(72px,11vw,140px); }
+.section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:32px; flex-wrap:wrap; margin-bottom:clamp(40px,6vw,64px); }
+.section-head h2{ font-size:clamp(30px,4vw,46px); font-style:italic; font-weight:300; }
+.section-head p{ max-width:38ch; color:var(--ink-soft); font-size:15px; line-height:1.6; }
+
+/* about */
+.about-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(32px,6vw,90px); align-items:start; }
+.about-lede{ font-family:var(--ff-display); font-style:italic; font-weight:300; font-size:clamp(22px,2.5vw,29px); line-height:1.4; color:var(--ink); }
+.about-lede em{ color:var(--teal); }
+.about-body{ margin-top:24px; color:var(--ink-soft); font-size:15px; line-height:1.8; max-width:52ch; }
+.about-body + .about-body{ margin-top:14px; }
+.quote{ margin-top:32px; padding-left:22px; border-left:1px solid var(--teal); }
+.quote p{ font-family:var(--ff-display); font-style:italic; font-size:19px; color:var(--ink); line-height:1.5; font-weight:300; }
+.quote cite{ display:block; margin-top:10px; font-style:normal; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-faint); }
+.about-panel{ padding:clamp(26px,3vw,36px); }
+.about-panel-art{ border-radius:var(--radius-s); overflow:hidden; margin-bottom:22px; }
+.about-panel-art svg{ width:100%; height:auto; display:block; }
+.about-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:15px; }
+.about-list li{ display:flex; align-items:flex-start; gap:12px; font-size:14px; color:var(--ink-soft); }
+.about-list svg{ width:17px; height:17px; flex-shrink:0; margin-top:2px; color:var(--teal); }
+.about-list strong{ color:var(--ink); font-weight:600; }
+
+/* bento */
+.bento{ display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+.bento-card{ position:relative; padding:clamp(24px,2.6vw,30px); display:flex; flex-direction:column; transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .3s ease; }
+.bento-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-2); border-color:var(--teal); }
+.bento-icon{ width:42px; height:42px; border-radius:12px; background:var(--glass-strong); display:flex; align-items:center; justify-content:center; color:var(--teal); margin-bottom:auto; }
+.bento-icon svg{ width:21px; height:21px; }
+.bento-card h3{ font-size:18px; font-weight:400; font-style:italic; margin-top:20px; }
+.bento-card p{ margin-top:10px; font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+.bento-tag{ position:absolute; top:22px; right:22px; font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); }
+.b-1{ grid-column:span 3; grid-row:span 2; } .b-2{ grid-column:span 3; } .b-3{ grid-column:span 2; }
+.b-4{ grid-column:span 2; background:linear-gradient(160deg, rgba(79,184,156,0.16), rgba(79,184,156,0.03)); }
+.b-5{ grid-column:span 2; }
+.b-1 .bento-icon{ width:50px; height:50px; } .b-1 h3{ font-size:22px; }
+.b-1-figure{ margin-top:18px; border-radius:14px; overflow:hidden; }
+.b-1-figure svg{ width:100%; height:auto; display:block; }
+
+/* yoga */
+.yoga-layout{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:clamp(32px,5vw,64px); align-items:start; }
+.yoga-intro-art{ border-radius:var(--radius-m); overflow:hidden; margin-bottom:24px; }
+.yoga-intro-art svg{ width:100%; height:auto; display:block; }
+.yoga-note{ margin-top:22px; font-size:13px; color:var(--ink-faint); line-height:1.7; border-top:1px solid var(--line); padding-top:20px; }
+.schedule-row{ display:grid; grid-template-columns:100px 1fr auto; gap:20px; align-items:center; padding:18px 22px; border-radius:var(--radius-s); }
+.schedule-row + .schedule-row{ margin-top:10px; }
+.schedule-day{ font-family:var(--ff-display); font-style:italic; font-size:16px; color:var(--ink); }
+.schedule-time{ font-size:12px; color:var(--ink-faint); font-variant-numeric:tabular-nums; margin-top:2px; }
+.schedule-practice{ font-weight:600; font-size:14.5px; color:var(--ink); }
+.schedule-place{ font-size:12.5px; color:var(--ink-soft); margin-top:3px; }
+.schedule-level{ justify-self:end; font-size:10.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border-radius:999px; background:var(--glass-strong); color:var(--teal); white-space:nowrap; }
+
+/* gallery */
+.gallery-grid{ display:grid; grid-template-columns:repeat(6,1fr); grid-auto-rows:120px; gap:12px; }
+.g-tile{ position:relative; border-radius:var(--radius-m); overflow:hidden; isolation:isolate; border:1px solid var(--line); }
+.g-tile svg{ position:absolute; inset:0; width:100%; height:100%; }
+.g-cap{ position:absolute; left:16px; bottom:14px; z-index:2; color:var(--ink); font-family:var(--ff-display); font-style:italic; font-size:15px; text-shadow:0 2px 14px rgba(0,0,0,0.6); }
+.g-1{ grid-column:span 3; grid-row:span 3; } .g-2{ grid-column:span 3; grid-row:span 2; }
+.g-3{ grid-column:span 2; grid-row:span 2; } .g-4{ grid-column:span 2; grid-row:span 2; }
+.g-5{ grid-column:span 2; grid-row:span 2; } .g-6{ grid-column:span 4; grid-row:span 2; }
+
+/* contacts */
+.contacts-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,6vw,80px); align-items:center; }
+.contacts-lede{ margin-top:18px; color:var(--ink-soft); font-size:15.5px; max-width:42ch; line-height:1.75; }
+.contact-rows{ margin-top:34px; display:flex; flex-direction:column; gap:22px; }
+.contact-row{ display:flex; align-items:flex-start; gap:16px; }
+.contact-row svg{ width:19px; height:19px; color:var(--teal); flex-shrink:0; margin-top:2px; }
+.contact-row a, .contact-row span{ text-decoration:none; color:var(--ink); font-size:15px; font-weight:500; }
+.contact-row small{ display:block; margin-top:2px; font-weight:400; color:var(--ink-faint); font-size:12.5px; }
+.contact-msgs{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
+.map-card{ overflow:hidden; }
+.map-card svg{ width:100%; height:auto; display:block; }
+
+/* footer */
+.site-footer{ border-top:1px solid var(--line); }
+.footer-inner{ padding-block:32px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-faint); }
+.footer-brand{ display:flex; align-items:center; gap:10px; color:var(--ink); font-family:var(--ff-display); font-style:italic; font-size:16px; }
+.footer-brand svg{ width:19px; height:19px; }
+.footer-links{ display:flex; gap:22px; list-style:none; padding:0; margin:0; }
+.footer-links a{ text-decoration:none; color:var(--ink-faint); transition:color .2s ease; }
+.footer-links a:hover{ color:var(--teal); }
+
+@media (max-width:980px){
+  .nav-desktop, .header-actions{ display:none; }
+  .nav-toggle{ display:flex; position:relative; }
+  .nav-mobile.open{ display:flex; }
+  .about-grid, .yoga-layout, .contacts-grid{ grid-template-columns:1fr; }
+  .b-1{ grid-column:span 6; grid-row:span 1; } .b-2{ grid-column:span 6; }
+  .b-3,.b-4,.b-5{ grid-column:span 3; }
+  .g-1{ grid-column:span 6; grid-row:span 3; } .g-2{ grid-column:span 3; }
+  .g-3{ grid-column:span 3; } .g-4{ grid-column:span 3; } .g-5{ grid-column:span 3; } .g-6{ grid-column:span 6; }
+}
+@media (max-width:600px){
+  .hero-panel{ grid-template-columns:1fr 1fr; }
+  .bento{ grid-template-columns:repeat(2,1fr); }
+  .b-1,.b-2,.b-3,.b-4,.b-5{ grid-column:span 2; }
+  .gallery-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:150px; }
+  .g-1,.g-2,.g-3,.g-4,.g-5,.g-6{ grid-column:span 2; grid-row:span 2; }
+  .schedule-row{ grid-template-columns:1fr; gap:8px; }
+  .schedule-level{ justify-self:start; }
+  .footer-inner{ flex-direction:column; align-items:flex-start; }
+}
+</style>
+
+<div class="ambient" aria-hidden="true"></div>
+<div class="stars" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 17c2 0 2-3 4-3s2 3 4 3 2-3 4-3 2 3 4 3 2-3 4-3"/><path d="M2 11c2 0 2-3 4-3s2 3 4 3 2-3 4-3 2 3 4 3 2-3 4-3"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c8 0 16-6 16-16C10 4 4 12 4 20Z"/><path d="M4 20c4-6 8-9 16-16"/></symbol>
+  <symbol id="i-lotus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4 0-7-2.5-7-6 3 0 5.5 1.4 7 3.6C13.5 16.4 16 15 19 15c0 3.5-3 6-7 6Z"/><path d="M12 15c0-4 2-7 5-9-1 4-1 7-5 9Z"/><path d="M12 15c0-4-2-7-5-9 1 4 1 7 5 9Z"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h11v6a5.5 5.5 0 0 1-11 0V8Z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c-.7.9-.7 1.6 0 2.5M12 3.5c-.7.9-.7 1.6 0 2.5"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12 19 4M16 7l2.5 2.5M19 4l2 2"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m14.5 9.5-2 5-5 2 2-5 5-2Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h3l1.5 4.5L8.5 9.5a12 12 0 0 0 6 6l2-2L21 15v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 5.2 2 2 0 0 1 6 3Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M6 14l6 6 6-6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4V5Z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+</svg>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#home" class="brand">
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1" opacity="0.4"/><use href="#i-wave" x="4" y="9" width="16" height="16" stroke-width="1.6"/></svg>
+      Причал
+    </a>
+    <nav class="nav-desktop" aria-label="Основная навигация">
+      <a href="#about">О нас</a>
+      <a href="#services">Услуги</a>
+      <a href="#yoga">Йога</a>
+      <a href="#gallery">Атмосфера</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="header-actions">
+      <a href="../" class="back-link"><svg viewBox="0 0 24 24" style="width:14px;height:14px;"><use href="#i-back"/></svg>Дневной вариант</a>
+      <a href="#contacts" class="btn btn-accent">Забронировать</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Открыть меню" aria-expanded="false"><span></span></button>
+  </div>
+  <nav class="nav-mobile" id="mobileNav" aria-label="Мобильная навигация">
+    <a href="#about">О нас</a>
+    <a href="#services">Услуги</a>
+    <a href="#yoga">Йога</a>
+    <a href="#gallery">Атмосфера</a>
+    <a href="#contacts">Контакты</a>
+    <div class="header-actions">
+      <a href="../" class="back-link"><svg viewBox="0 0 24 24" style="width:14px;height:14px;"><use href="#i-back"/></svg>Дневной вариант</a>
+      <a href="#contacts" class="btn btn-accent">Забронировать</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<section class="hero" id="home">
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 1440 720" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--bg-deep)"/>
+          <stop offset="55%" stop-color="var(--bg)"/>
+          <stop offset="100%" stop-color="var(--bg)"/>
+        </linearGradient>
+        <radialGradient id="moon" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="var(--ink)" stop-opacity="0.9"/>
+          <stop offset="55%" stop-color="var(--teal)" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="var(--teal)" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#173129"/>
+          <stop offset="100%" stop-color="var(--bg-deep)"/>
+        </linearGradient>
+      </defs>
+      <rect width="1440" height="720" fill="url(#sky)"/>
+      <circle cx="1120" cy="260" r="150" fill="url(#moon)"/>
+      <circle cx="1120" cy="260" r="40" fill="var(--ink)" opacity="0.92"/>
+      <circle cx="1132" cy="248" r="36" fill="var(--bg)" opacity="0.5"/>
+      <path d="M0 430 L110 360 L230 400 L360 300 L480 380 L620 310 L760 390 L900 320 L1040 400 L1190 340 L1320 400 L1440 360 L1440 720 L0 720 Z" fill="#050705" opacity="0.6"/>
+      <path d="M0 470 L140 410 L280 445 L420 370 L560 435 L720 385 L860 440 L1020 380 L1180 440 L1320 400 L1440 430 L1440 720 L0 720 Z" fill="#020302" opacity="0.75"/>
+      <rect y="470" width="1440" height="250" fill="url(#sea)"/>
+      <rect x="1060" y="470" width="120" height="250" fill="var(--teal)" opacity="0.1"/>
+      <g class="wave-group" style="animation:waveDrift 30s linear infinite;">
+        <path d="M0 500 Q60 490 120 500 T240 500 T360 500 T480 500 T600 500 T720 500 T840 500 T960 500 T1080 500 T1200 500 T1320 500 T1440 500" fill="none" stroke="var(--teal)" stroke-opacity="0.28" stroke-width="1.6"/>
+        <path d="M1440 500 Q1500 490 1560 500 T1680 500 T1800 500 T1920 500 T2040 500 T2160 500 T2280 500 T2400 500 T2520 500 T2640 500 T2760 500 T2880 500" fill="none" stroke="var(--teal)" stroke-opacity="0.28" stroke-width="1.6"/>
+        <path d="M0 545 Q60 533 120 545 T240 545 T360 545 T480 545 T600 545 T720 545 T840 545 T960 545 T1080 545 T1200 545 T1320 545 T1440 545" fill="none" stroke="var(--ink)" stroke-opacity="0.08" stroke-width="1.6"/>
+        <path d="M1440 545 Q1500 533 1560 545 T1680 545 T1800 545 T1920 545 T2040 545 T2160 545 T2280 545 T2400 545 T2520 545 T2640 545 T2760 545 T2880 545" fill="none" stroke="var(--ink)" stroke-opacity="0.08" stroke-width="1.6"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-fade" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow" data-reveal="1">Приватный ретрит у моря · Сочи</p>
+      <h1 class="hero-title" data-reveal="2">Уединение и <em>тишина</em><br>после заката</h1>
+      <p class="hero-sub" data-reveal="3">Камерный отель на 14 номеров с видом на воду. Ужин при свечах, вечерняя практика на террасе и море, которое слышно из каждой комнаты.</p>
+      <div class="hero-cta-row" data-reveal="4">
+        <a href="#contacts" class="btn btn-accent">Забронировать номер</a>
+        <a href="#yoga" class="btn btn-glass">Расписание практик</a>
+      </div>
+    </div>
+    <div class="hero-panel" data-reveal="4">
+      <div class="glass hero-stat"><b>14</b><span>номеров с видом на море</span></div>
+      <div class="glass hero-stat"><b>300 м</b><span>до кромки воды</span></div>
+      <div class="glass hero-stat"><b>2×</b><span>практики в день</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="about section-pad" id="about">
+  <div class="container about-grid">
+    <div class="scroll-reveal">
+      <p class="eyebrow">Кто мы</p>
+      <p class="about-lede" style="margin-top:20px;">Причал — небольшой отель в Хостинском районе Сочи для тех, кто выбирает <em>тишину вместо анимации</em>: без очередей у бассейна, зато с морем в каждом окне и вечером без экранов.</p>
+      <p class="about-body">Мы начинали как дом на семью с террасой над водой — и выросли в отель на 14 номеров, сохранив главное: приватность, медленный ритм дня и вечер, который заканчивается закатной практикой, а не лентой новостей.</p>
+      <p class="about-body">После заката терраса освещается свечами, а группа собирается на короткую практику под звёздами. Остальное время — ваше: тишина, книга, бокал вина у воды.</p>
+      <div class="quote">
+        <p>«Впервые за два года я не проверяла телефон по вечерам — просто слушала море».</p>
+        <cite>Гостья ретрита, май 2026</cite>
+      </div>
+    </div>
+    <div class="glass about-panel scroll-reveal">
+      <div class="about-panel-art">
+        <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="240" fill="#0A0C09"/>
+          <circle cx="320" cy="55" r="22" fill="var(--ink)" opacity="0.85"/>
+          <path d="M0 150 L60 120 L130 140 L200 100 L270 135 L340 110 L400 130 L400 240 L0 240 Z" fill="#050705" opacity="0.7"/>
+          <rect y="160" width="400" height="80" fill="#173129" opacity="0.9"/>
+          <path d="M0 180 Q40 172 80 180 T160 180 T240 180 T320 180 T400 180" fill="none" stroke="var(--teal)" stroke-opacity="0.35" stroke-width="1.6"/>
+        </svg>
+      </div>
+      <ul class="about-list">
+        <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span><strong>14 номеров</strong> — все с видом на море, без «окна во двор»</span></li>
+        <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span><strong>Малые группы</strong> — на практике не больше 10 человек</span></li>
+        <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span><strong>Своя кухня</strong> — ужин при свечах из local-продуктов</span></li>
+        <li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg><span><strong>5 минут пешком</strong> до моря по тихой аллее</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="services section-pad" id="services">
+  <div class="container">
+    <div class="section-head scroll-reveal">
+      <div>
+        <p class="eyebrow">Что входит</p>
+        <h2 style="margin-top:16px;">Услуги отеля и ретрита</h2>
+      </div>
+      <p>От номера с видом на воду до закрытого ретрита для своей группы — собираем формат под ваш темп.</p>
+    </div>
+    <div class="bento scroll-reveal">
+      <article class="glass bento-card b-1">
+        <span class="bento-tag">Главное</span>
+        <div class="bento-icon"><svg viewBox="0 0 24 24"><use href="#i-key"/></svg></div>
+        <h3>Номера с видом на море</h3>
+        <p>14 номеров, от компактных студий до семейных с террасой. Панорамные окна, приглушённый свет, тишина.</p>
+        <div class="b-1-figure">
+          <svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="500" height="160" fill="#0A0C09"/>
+            <rect y="100" width="500" height="60" fill="#173129" opacity="0.9"/>
+            <path d="M0 100 L80 78 L160 92 L240 66 L320 90 L400 72 L500 88 L500 100 L0 100 Z" fill="#050705" opacity="0.7"/>
+            <path d="M0 116 Q40 110 80 116 T160 116 T240 116 T320 116 T400 116 T480 116" fill="none" stroke="var(--teal)" stroke-opacity="0.4" stroke-width="1.6"/>
+          </svg>
+        </div>
+      </article>
+      <article class="glass bento-card b-2">
+        <div class="bento-icon"><svg viewBox="0 0 24 24"><use href="#i-lotus"/></svg></div>
+        <h3>Йога и медитация</h3>
+        <p>Утренняя и закатная практика на террасе, дыхательные сессии, инструкторы уровня Yoga Alliance RYT‑500.</p>
+      </article>
+      <article class="glass bento-card b-3">
+        <div class="bento-icon"><svg viewBox="0 0 24 24"><use href="#i-leaf"/></svg></div>
+        <h3>Спа и массаж</h3>
+        <p>Массаж по записи, травяные бани, купели с прохладной водой после практики.</p>
+      </article>
+      <article class="glass bento-card b-4">
+        <div class="bento-icon"><svg viewBox="0 0 24 24"><use href="#i-key"/></svg></div>
+        <h3>Приватные ретриты</h3>
+        <p>Закрываем отель под небольшую группу — от корпоративного выезда до дня рождения на 12 человек.</p>
+      </article>
+      <article class="glass bento-card b-5">
+        <div class="bento-icon"><svg viewBox="0 0 24 24"><use href="#i-cup"/></svg></div>
+        <h3>Кухня без меню</h3>
+        <p>Ужин при свечах из local-продуктов: рынок в Хосте, сыроварни в горах, утренний улов.</p>
+      </article>
+      <article class="glass bento-card b-3" style="grid-column:span 3;">
+        <div class="bento-icon"><svg viewBox="0 0 24 24"><use href="#i-compass"/></svg></div>
+        <h3>Экскурсии в горы</h3>
+        <p>Тисо-самшитовая роща, водопады Агуры, Красная Поляна — организуем трансфер и гида.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="yoga section-pad" id="yoga">
+  <div class="container yoga-layout">
+    <div class="scroll-reveal">
+      <p class="eyebrow">Практика</p>
+      <h2 style="margin-top:16px;">Расписание йоги</h2>
+      <div class="glass yoga-intro-art">
+        <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="260" fill="#0A0C09"/>
+          <circle cx="320" cy="55" r="26" fill="var(--ink)" opacity="0.85"/>
+          <path d="M60 210c0-40 20-70 40-90 6 28 6 60-10 90Z" fill="var(--teal)" opacity="0.4"/>
+          <path d="M120 210c0-40-20-70-40-90-6 28-6 60 10 90Z" fill="var(--ink)" opacity="0.15"/>
+          <circle cx="90" cy="120" r="15" fill="var(--ink)" opacity="0.85"/>
+          <path d="M0 210 Q40 200 80 210 T160 210 T240 210 T320 210 T400 210" fill="none" stroke="var(--teal)" stroke-opacity="0.3" stroke-width="1.6"/>
+        </svg>
+      </div>
+      <p style="color:var(--ink-soft); font-size:14px; line-height:1.75;">Практика проходит на деревянной террасе с видом на море. Коврики, пледы и вода — на месте, приходить можно в чём угодно.</p>
+      <p class="yoga-note">Расписание уточняется по сезону. Для группы от 6 человек — отдельная программа и индивидуальные слоты по запросу.</p>
+    </div>
+    <div class="schedule-list scroll-reveal">
+      <div class="glass schedule-row">
+        <div><div class="schedule-day">Пн</div><div class="schedule-time">07:30–08:30</div></div>
+        <div><div class="schedule-practice">Хатха-йога</div><div class="schedule-place">Терраса, вид на море</div></div>
+        <span class="schedule-level">Любой уровень</span>
+      </div>
+      <div class="glass schedule-row">
+        <div><div class="schedule-day">Вт</div><div class="schedule-time">18:30–19:45</div></div>
+        <div><div class="schedule-practice">Виньяса-флоу</div><div class="schedule-place">Терраса, вид на море</div></div>
+        <span class="schedule-level">Средний</span>
+      </div>
+      <div class="glass schedule-row">
+        <div><div class="schedule-day">Ср</div><div class="schedule-time">08:00–08:45</div></div>
+        <div><div class="schedule-practice">Пранаяма и медитация</div><div class="schedule-place">Сад, у кипарисов</div></div>
+        <span class="schedule-level">Любой уровень</span>
+      </div>
+      <div class="glass schedule-row">
+        <div><div class="schedule-day">Чт</div><div class="schedule-time">19:00–20:00</div></div>
+        <div><div class="schedule-practice">Йога на закате</div><div class="schedule-place">Пляж, 5 мин от отеля</div></div>
+        <span class="schedule-level">Любой уровень</span>
+      </div>
+      <div class="glass schedule-row">
+        <div><div class="schedule-day">Сб</div><div class="schedule-time">07:30–09:00</div></div>
+        <div><div class="schedule-practice">Долгая практика + завтрак</div><div class="schedule-place">Терраса → кухня</div></div>
+        <span class="schedule-level">Средний</span>
+      </div>
+      <div class="glass schedule-row">
+        <div><div class="schedule-day">Вс</div><div class="schedule-time">По запросу</div></div>
+        <div><div class="schedule-practice">Индивидуальная сессия</div><div class="schedule-place">Терраса или номер</div></div>
+        <span class="schedule-level">Персонально</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery section-pad" id="gallery">
+  <div class="container">
+    <div class="section-head scroll-reveal">
+      <div>
+        <p class="eyebrow">Атмосфера</p>
+        <h2 style="margin-top:16px;">Причал после заката</h2>
+      </div>
+      <p>Настроение места — в свете, воде и тишине. Полную фотосъёмку добавим перед запуском.</p>
+    </div>
+    <div class="gallery-grid scroll-reveal">
+      <div class="g-tile g-1">
+        <svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice"><rect width="300" height="300" fill="#0A0C09"/><circle cx="230" cy="65" r="34" fill="var(--ink)" opacity="0.85"/><path d="M0 220 L60 190 L120 210 L180 175 L240 205 L300 185 L300 300 L0 300 Z" fill="#050705" opacity="0.8"/><rect y="230" width="300" height="70" fill="#173129" opacity="0.9"/></svg>
+        <span class="g-cap">Вид из номера</span>
+      </div>
+      <div class="g-tile g-2">
+        <svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice"><rect width="300" height="200" fill="#151912"/><rect x="30" y="40" width="90" height="120" rx="6" fill="rgba(241,236,221,0.06)" opacity="0.9"/><rect x="140" y="70" width="130" height="90" rx="6" fill="var(--teal)" opacity="0.18"/></svg>
+        <span class="g-cap">Йога-шала ночью</span>
+      </div>
+      <div class="g-tile g-3">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><rect width="200" height="200" fill="#173129"/><path d="M0 130 Q50 110 100 130 T200 130 V200 H0 Z" fill="#0A0C09" opacity="0.7"/><circle cx="150" cy="50" r="16" fill="var(--ink)" opacity="0.9"/></svg>
+        <span class="g-cap">Луна над водой</span>
+      </div>
+      <div class="g-tile g-4">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><rect width="200" height="200" fill="#151912"/><path d="M0 150c40-30 60-30 100 0s60 30 100 0" stroke="var(--gold)" stroke-width="2" fill="none" opacity="0.5"/><rect x="60" y="60" width="80" height="50" rx="8" fill="rgba(229,176,100,0.12)"/></svg>
+        <span class="g-cap">Свечи на террасе</span>
+      </div>
+      <div class="g-tile g-5">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><rect width="200" height="200" fill="#050705"/><path d="M0 60 L40 20 L80 50 L120 10 L160 45 L200 15 L200 200 L0 200 Z" fill="#173129" opacity="0.7"/></svg>
+        <span class="g-cap">Горы в сумерках</span>
+      </div>
+      <div class="g-tile g-6">
+        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice"><rect width="400" height="200" fill="#151912"/><rect x="20" y="60" width="360" height="90" rx="10" fill="rgba(241,236,221,0.05)"/><circle cx="80" cy="105" r="14" fill="var(--gold)" opacity="0.5"/><circle cx="130" cy="105" r="14" fill="var(--teal)" opacity="0.5"/><circle cx="180" cy="105" r="14" fill="var(--ink)" opacity="0.2"/></svg>
+        <span class="g-cap">Ужин у воды</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contacts section-pad" id="contacts">
+  <div class="container contacts-grid">
+    <div class="scroll-reveal">
+      <p class="eyebrow">Контакты</p>
+      <h2 style="margin-top:16px;">Причал ждёт вас</h2>
+      <p class="contacts-lede">Оставьте заявку любым удобным способом — ответим в течение дня и подберём номер под ваши даты.</p>
+      <div class="contact-rows">
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24"><use href="#i-pin"/></svg>
+          <span>Сочи, Хостинский район<small>ул. Прибрежная, 14 — 300 м до моря</small></span>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24"><use href="#i-phone"/></svg>
+          <a href="tel:+78624001217">+7 862 400‑12‑17<small>ежедневно, 9:00–21:00</small></a>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24"><use href="#i-mail"/></svg>
+          <a href="mailto:privet@prichal-retreat.ru">privet@prichal-retreat.ru<small>бронирование и вопросы по ретритам</small></a>
+        </div>
+      </div>
+      <div class="contact-msgs">
+        <a href="https://t.me/prichal_retreat" class="btn btn-glass"><svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#i-chat"/></svg> Telegram</a>
+        <a href="https://wa.me/78624001217" class="btn btn-glass"><svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#i-chat"/></svg> WhatsApp</a>
+        <a href="#" class="btn btn-accent">Забронировать номер</a>
+      </div>
+    </div>
+    <div class="glass map-card scroll-reveal">
+      <svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg">
+        <rect width="480" height="420" fill="#0A0C09"/>
+        <path d="M0 260c60-20 120 10 180-10s110-40 170-20 130 20 130 20v170H0Z" fill="#050705" opacity="0.6"/>
+        <path d="M0 300c70-10 130 20 190 5s100-35 160-15 130 25 130 25v105H0Z" fill="#173129" opacity="0.8"/>
+        <path d="M0 330c80 0 140 25 210 10s110-30 170-10 100 15 100 15v75H0Z" fill="#0A0C09" opacity="0.7"/>
+        <g stroke="rgba(241,236,221,0.14)" stroke-width="1">
+          <line x1="0" y1="90" x2="480" y2="90"/><line x1="0" y1="180" x2="480" y2="180"/>
+          <line x1="120" y1="0" x2="120" y2="420"/><line x1="300" y1="0" x2="300" y2="420"/>
+        </g>
+        <circle cx="230" cy="150" r="7" fill="var(--gold)"/>
+        <circle cx="230" cy="150" r="18" fill="var(--gold)" opacity="0.25"/>
+        <path d="M230 132v-22" stroke="var(--gold)" stroke-width="1.4"/>
+        <text x="248" y="128" fill="var(--ink)" font-family="Outfit, sans-serif" font-size="12" font-weight="700" letter-spacing="0.03em">ПРИЧАЛ</text>
+        <text x="248" y="146" fill="var(--ink-faint)" font-family="Outfit, sans-serif" font-size="11">Хостинский район, Сочи</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1" opacity="0.4"/><use href="#i-wave" x="4" y="9" width="16" height="16" stroke-width="1.6"/></svg>
+      Причал
+    </div>
+    <ul class="footer-links">
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#yoga">Йога</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ul>
+    <span>© 2026 Причал Retreat, Сочи</span>
+  </div>
+</footer>
+
+<style>
+@keyframes waveDrift{ from{ transform:translateX(0);} to{ transform:translateX(-1440px);} }
+</style>
+
+<script>
+(function(){
+  var header = document.getElementById('siteHeader');
+  var onScroll = function(){
+    if (window.scrollY > 8) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+
+  var toggle = document.getElementById('navToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  toggle.addEventListener('click', function(){
+    var open = mobileNav.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileNav.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.scroll-reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.scroll-reveal').forEach(function(el){ el.classList.add('in-view'); });
+  }
+})();
+</script>
